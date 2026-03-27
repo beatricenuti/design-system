@@ -3,12 +3,9 @@ import { SideNav } from "./components/SideNav.jsx";
 import { ButtonDocs } from "./components/ButtonDocs.jsx";
 import { ActionBarDocs } from "./components/ActionBarDocs.jsx";
 import { ContextualAlertDocs } from "./components/ContextualAlertDocs.jsx";
-import { ChannelsButtonDocs } from "./components/ChannelsButtonDocs.jsx";
-
 const navItems = [
   { type: "heading", id: "components-heading", label: "Components" },
   { id: "button", label: "Button" },
-  { id: "channels-button", label: "Channels Button" },
   { id: "action-bar", label: "Action Bar" },
   { id: "contextual-alert", label: "Contextual Alert" },
 ];
@@ -28,7 +25,6 @@ export function App() {
       </aside>
       <main className="main-pane">
         {activeComponentId === "button" && <ButtonDocs />}
-        {activeComponentId === "channels-button" && <ChannelsButtonDocs />}
         {activeComponentId === "action-bar" && <ActionBarDocs />}
         {activeComponentId === "contextual-alert" && <ContextualAlertDocs />}
       </main>

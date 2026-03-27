@@ -4,36 +4,45 @@ import { Button } from "./Button.jsx";
 import { CodeBlock } from "./CodeBlock.jsx";
 
 export function ButtonDocs() {
-  const [variantId, setVariantId] = React.useState("primary");
-  const [sizeId, setSizeId] = React.useState("medium");
-  const [stateId, setStateId] = React.useState("default");
+  const [variantId, setVariantId] = React.useState("Flat");
+  const [sizeId, setSizeId] = React.useState("L");
+  const [stateId, setStateId] = React.useState("Default");
+  const [typeId, setTypeId] = React.useState("Text");
+  const [blackVersion, setBlackVersion] = React.useState(false);
 
-  const variant = buttonVariants.variants.find((v) => v.id === variantId);
-  const size = buttonVariants.sizes.find((s) => s.id === sizeId);
-  const state = buttonVariants.states.find((s) => s.id === stateId);
-
-  const tokensForState = getButtonTokensForState(variantId, stateId);
+  const tokensForState = getButtonTokensForState(variantId, stateId, blackVersion);
 
   const codeExample = `import { Button } from "./components/Button.jsx";
 
 <Button
   variant="${variantId}"
   size="${sizeId}"
-  ${stateId === "disabled" ? "disabled" : ""}
->
-  Label
-</Button>`;
+  state="${stateId}"
+  type="${typeId}"
+  text="Button"
+  blackVersion={${blackVersion}}
+/>`;
 
   return (
     <section className="docs-section" aria-labelledby="button-heading">
       <header className="docs-section__header">
         <h1 id="button-heading">Button</h1>
         <p className="docs-section__subtitle">
-          Buttons trigger actions in the interface (submit, cancel, navigate). They use semantic
-          design tokens for color, typography, spacing, and interaction states. Use Primary for
-          the main action, Secondary for supporting actions, and Tertiary for low-emphasis or
-          text-like actions. Available in three sizes (Small, Medium, Large) and with clear
-          default, hover, pressed, and disabled states.
+          Channels library — Prueba IA. Figma component (node{" "}
+          <a
+            href="https://www.figma.com/design/NkKgVEkdTAusdqHaqtUULO/%F0%9F%92%A5-Channels-library--Prueba-IA-?node-id=353-798&m=dev"
+            target="_blank"
+            rel="noreferrer"
+          >
+            353-798
+          </a>
+          ): Flat L Text default uses <code className="token-name">space/12</code> (48px),{" "}
+          <code className="token-name">space/4</code> (16px) horizontal padding,{" "}
+          <code className="token-name">space/0</code> vertical,{" "}
+          <code className="token-name">radius/sm</code> (4px),{" "}
+          <code className="token-name">color/brand/channels/500</code> (#009ee0),{" "}
+          <code className="token-name">color/neutral/0</code> for label, Nunito Sans Bold{" "}
+          <code className="token-name">font/size/md</code>. Hover 353-825 (15% black on base); Selected 353-828 (25%).
         </p>
       </header>
 
@@ -101,26 +110,65 @@ export function ButtonDocs() {
               ))}
             </div>
           </div>
+
+          <div className="controls-panel__group">
+            <span className="controls-panel__label">Type</span>
+            <div className="segment segment--wrap">
+              {buttonVariants.types.map((t) => (
+                <button
+                  key={t.id}
+                  type="button"
+                  className={[
+                    "segment__item",
+                    t.id === typeId && "is-selected",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                  onClick={() => setTypeId(t.id)}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="controls-panel__group">
+            <span className="controls-panel__label">Black version</span>
+            <div className="segment">
+              <button
+                type="button"
+                className={[
+                  "segment__item",
+                  blackVersion && "is-selected",
+                ]
+                  .filter(Boolean)
+                  .join(" ")}
+                onClick={() => setBlackVersion((b) => !b)}
+              >
+                {blackVersion ? "On" : "Off"}
+              </button>
+            </div>
+          </div>
         </div>
 
         <div className="preview-panel">
           <span className="preview-panel__label">Preview</span>
           <Button
-            variant={variant.id}
-            size={size.id}
-            state={state.id}
-            disabled={state.id === "disabled"}
-          >
-            Label
-          </Button>
+            variant={variantId}
+            size={sizeId}
+            state={stateId}
+            type={typeId}
+            text="Button"
+            blackVersion={blackVersion}
+          />
         </div>
       </div>
 
       <section aria-label="Button tokens" className="tokens-section">
         <h2>Tokens</h2>
         <p className="tokens-section__description">
-          Semantic tokens for the selected variant and state. These names match Figma variable naming.
-          Select your button component in Figma and use <strong>get_variable_defs</strong> to sync exact values.
+          Semantic variables from Figma for this component. Sync with{" "}
+          <strong>get_variable_defs</strong> on the selected button node.
         </p>
         <div className="tokens-table-wrapper">
           <table className="tokens-table">
@@ -136,15 +184,20 @@ export function ButtonDocs() {
               {tokensForState.map((t) => (
                 <tr key={`${t.role}-${t.tokenName}`}>
                   <td>{t.role}</td>
-                  <td><code className="token-name">{t.tokenName}</code></td>
-                  <td><code className="token-name">{t.cssVariable}</code></td>
                   <td>
-                    {t.exampleValue !== "transparent" && (
-                      <span
-                        className="tokens-table__swatch"
-                        style={{ background: t.exampleValue }}
-                      />
-                    )}
+                    <code className="token-name">{t.tokenName}</code>
+                  </td>
+                  <td>
+                    <code className="token-name">{t.cssVariable}</code>
+                  </td>
+                  <td>
+                    {typeof t.exampleValue === "string" &&
+                      t.exampleValue.startsWith("#") && (
+                        <span
+                          className="tokens-table__swatch"
+                          style={{ background: t.exampleValue }}
+                        />
+                      )}
                     {t.exampleValue}
                   </td>
                 </tr>
@@ -157,7 +210,8 @@ export function ButtonDocs() {
       <section aria-label="React usage" className="code-section">
         <h2>React code</h2>
         <p className="code-section__description">
-          Use the Button component with the same props. Copy the code below.
+          Copy the snippet below. Use <code className="token-name">children</code> instead of{" "}
+          <code className="token-name">text</code> when the label is plain text.
         </p>
         <CodeBlock code={codeExample} label="React" />
       </section>

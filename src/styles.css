@@ -7,18 +7,20 @@
   --text-muted: #6b7280;
   --accent: #2563eb;
 
-  /* Button tokens wired to CSS variables (replace with your real token var names) */
-  --color-button-primary-background: #2563eb;
-  --color-button-primary-label: #ffffff;
-  --color-button-primary-border: #1d4ed8;
+  /* Channels library — Prueba IA (Figma node 353-798, get_variable_defs) */
+  --color-brand-channels-500: #009ee0;
+  --color-neutral-0: #ffffff;
+  --font-size-md: 16px;
+  --font-family-base: "Nunito Sans", system-ui, sans-serif;
+  --font-weight-bold: 700;
+  --space-0: 0px;
+  --space-4: 16px;
+  --space-12: 48px;
+  --radius-sm: 4px;
 
-  --color-button-secondary-background: #f3f4f6;
-  --color-button-secondary-label: #111827;
-  --color-button-secondary-border: #d1d5db;
-
-  --color-button-tertiary-background: transparent;
-  --color-button-tertiary-label: #2563eb;
-  --color-button-tertiary-border: transparent;
+  /* Legacy aliases (Portal B2C / other screens) */
+  --base-brand-colors-500-base-color: var(--color-brand-channels-500);
+  --grayscale-white: var(--color-neutral-0);
 }
 
 *,
@@ -94,8 +96,8 @@ body {
 }
 
 .side-nav__item.is-active {
-  background: #eff6ff;
-  color: #2563eb;
+  background: rgba(0, 158, 224, 0.1);
+  color: var(--base-brand-colors-500-base-color, #009ee0);
 }
 
 .side-nav__item:hover:not(.is-active) {
@@ -156,11 +158,16 @@ body {
 
 .segment {
   display: inline-flex;
+  flex-wrap: wrap;
   padding: 2px;
   background: #e5e7eb;
   border-radius: 999px;
   border: 1px solid var(--border-subtle);
   gap: 2px;
+}
+
+.segment--wrap {
+  max-width: 100%;
 }
 
 .segment__item {
@@ -201,66 +208,6 @@ body {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-muted);
-}
-
-.ds-button {
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  border-style: solid;
-  border-width: 1px;
-  cursor: pointer;
-  transition: transform 120ms ease, box-shadow 120ms ease,
-    background-color 120ms ease, color 120ms ease, border-color 120ms ease;
-}
-
-.ds-button--small {
-  padding: 6px 14px;
-}
-
-.ds-button--medium {
-  padding: 8px 18px;
-}
-
-.ds-button--large {
-  padding: 10px 22px;
-}
-
-.ds-button--primary {
-  background: var(--color-button-primary-background);
-  color: var(--color-button-primary-label);
-  border-color: var(--color-button-primary-border);
-}
-
-.ds-button--secondary {
-  background: var(--color-button-secondary-background);
-  color: var(--color-button-secondary-label);
-  border-color: var(--color-button-secondary-border);
-}
-
-.ds-button--tertiary {
-  background: var(--color-button-tertiary-background);
-  color: var(--color-button-tertiary-label);
-  border-color: var(--color-button-tertiary-border);
-}
-
-.ds-button--hover:not(:disabled) {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
-
-.ds-button--pressed:not(:disabled) {
-  transform: translateY(0);
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
-}
-
-.ds-button--disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
 }
 
 .tokens-section {

@@ -1,0 +1,185 @@
+/* Channels library — Prueba IA (Figma 353-798 default; hover 353-825; selected 353-828) */
+
+.ds-button {
+  --ds-btn-bg: var(--color-brand-channels-500, #009ee0);
+  --ds-btn-label: var(--color-neutral-0, #ffffff);
+  --ds-btn-border: var(--color-brand-channels-500, #009ee0);
+  --ds-btn-radius: var(--radius-sm, 4px);
+  --ds-btn-font: var(--font-family-base, "Nunito Sans", sans-serif);
+  --ds-btn-size: var(--font-size-md, 16px);
+  --ds-btn-weight: var(--font-weight-bold, 700);
+  --ds-btn-line-height: 22px;
+  --ds-btn-space-x: var(--space-4, 16px);
+  --ds-btn-padding-y: var(--space-0, 0px);
+  --ds-btn-height-l: var(--space-12, 48px);
+  --ds-btn-height-m: 40px;
+  --ds-btn-height-s: 32px;
+  --ds-btn-min-width: 96px;
+
+  font-family: var(--ds-btn-font);
+  font-size: var(--ds-btn-size);
+  font-weight: var(--ds-btn-weight);
+  line-height: var(--ds-btn-line-height);
+  border-radius: var(--ds-btn-radius);
+  border: 1px solid var(--ds-btn-border);
+  background: var(--ds-btn-bg);
+  color: var(--ds-btn-label);
+  min-width: var(--ds-btn-min-width);
+  padding: var(--ds-btn-padding-y) var(--ds-btn-space-x);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+.ds-button--text-icon {
+  min-width: auto;
+  border-radius: var(--radius-xs, 4px);
+}
+
+.ds-button__label {
+  white-space: nowrap;
+}
+
+.ds-button:focus-visible {
+  outline: 2px solid var(--ds-btn-bg);
+  outline-offset: 2px;
+}
+
+.ds-button--flat {
+  background: var(--ds-btn-bg);
+  color: var(--ds-btn-label);
+  border-color: var(--ds-btn-bg);
+}
+
+.ds-button--flat:hover:not(:disabled):not(.ds-button--selected) {
+  background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), var(--ds-btn-bg);
+  border-color: var(--ds-btn-bg);
+}
+
+.ds-button--flat.ds-button--selected,
+.ds-button--flat:active:not(:disabled) {
+  background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), var(--ds-btn-bg);
+  border-color: var(--ds-btn-bg);
+}
+
+.ds-button--stroked {
+  background: transparent;
+  color: var(--ds-btn-bg);
+  border-color: var(--ds-btn-bg);
+}
+
+.ds-button--stroked:hover:not(:disabled):not(.ds-button--selected) {
+  background: rgba(0, 158, 224, 0.08);
+}
+
+.ds-button--stroked.ds-button--selected,
+.ds-button--stroked:active:not(:disabled) {
+  background: rgba(0, 158, 224, 0.12);
+}
+
+.ds-button--ghost {
+  background: transparent;
+  color: var(--ds-btn-bg);
+  border-color: transparent;
+}
+
+.ds-button--ghost:hover:not(:disabled):not(.ds-button--selected) {
+  background: rgba(0, 158, 224, 0.08);
+}
+
+.ds-button--ghost.ds-button--selected,
+.ds-button--ghost:active:not(:disabled) {
+  background: rgba(0, 158, 224, 0.12);
+}
+
+.ds-button--l {
+  height: var(--ds-btn-height-l);
+}
+
+.ds-button--m {
+  height: var(--ds-btn-height-m);
+  min-width: 80px;
+  font-size: 14px;
+}
+
+.ds-button--s {
+  height: var(--ds-btn-height-s);
+  min-width: 64px;
+  font-size: 14px;
+  padding: 0 12px;
+}
+
+.ds-button--hover.ds-button--flat {
+  background: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), var(--ds-btn-bg);
+  border-color: var(--ds-btn-bg);
+}
+
+.ds-button--selected.ds-button--flat {
+  background: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), var(--ds-btn-bg);
+  border-color: var(--ds-btn-bg);
+}
+
+.ds-button--hover.ds-button--stroked {
+  background: rgba(0, 158, 224, 0.08);
+}
+
+.ds-button--hover.ds-button--ghost {
+  background: rgba(0, 158, 224, 0.08);
+}
+
+.ds-button:disabled,
+.ds-button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ds-button--black.ds-button--flat {
+  --ds-btn-bg: #111827;
+  --ds-btn-label: #ffffff;
+  --ds-btn-border: #111827;
+}
+
+.ds-button--black.ds-button--flat:hover:not(:disabled):not(.ds-button--selected) {
+  background: #1f2937;
+  border-color: #1f2937;
+}
+
+.ds-button--black.ds-button--stroked {
+  color: #111827;
+  border-color: #111827;
+}
+
+.ds-button--black.ds-button--stroked:hover:not(:disabled) {
+  background: rgba(17, 24, 39, 0.08);
+}
+
+.ds-button--black.ds-button--ghost {
+  color: #111827;
+}
+
+.ds-button--black.ds-button--ghost:hover:not(:disabled) {
+  background: rgba(17, 24, 39, 0.08);
+}
+
+.ds-button__icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ds-button__icon svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.ds-button--icon-only.ds-button--l {
+  min-width: var(--ds-btn-height-l);
+  padding: 0;
+}

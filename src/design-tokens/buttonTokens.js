@@ -1,81 +1,135 @@
 /**
- * Button variant/size/state definitions and semantic design tokens.
- * Token names follow Figma semantic naming. Sync with Figma via get_variable_defs (select button in Figma).
+ * Button — Channels library · Prueba IA (Figma node 353-798).
+ * Token paths match get_variable_defs from Figma file NkKgVEkdTAusdqHaqtUULO.
  */
 export const buttonVariants = {
   variants: [
-    { id: "primary", label: "Primary" },
-    { id: "secondary", label: "Secondary" },
-    { id: "tertiary", label: "Tertiary" },
+    { id: "Flat", label: "Flat" },
+    { id: "Stroked", label: "Stroked" },
+    { id: "Ghost", label: "Ghost" },
   ],
   sizes: [
-    { id: "small", label: "Small" },
-    { id: "medium", label: "Medium" },
-    { id: "large", label: "Large" },
+    { id: "L", label: "L" },
+    { id: "M", label: "M" },
+    { id: "S", label: "S" },
   ],
   states: [
-    { id: "default", label: "Default" },
-    { id: "hover", label: "Hover" },
-    { id: "pressed", label: "Pressed" },
-    { id: "disabled", label: "Disabled" },
+    { id: "Default", label: "Default" },
+    { id: "Hover", label: "Hover" },
+    { id: "Selected", label: "Selected" },
+    { id: "Disabled", label: "Disabled" },
+  ],
+  types: [
+    { id: "Text", label: "Text" },
+    { id: "Icon + text", label: "Icon + text" },
+    { id: "Text + icon", label: "Text + icon" },
+    { id: "Icon", label: "Icon" },
   ],
 };
 
-/**
- * Semantic tokens per variant and state. Names match Figma variable naming (e.g. color/button/primary/...).
- * CSS variables in :root and .ds-button--* map these for implementation.
- */
-function makeTokenRows(variant, defaultBg, defaultLabel, defaultBorder, hoverBg, hoverLabel, hoverBorder, pressedBg, pressedLabel, pressedBorder, disabledBg, disabledLabel, disabledBorder) {
-  const byState = {
-    default: [
-      { role: "Background", tokenName: `color/button/${variant}/default/background`, cssVariable: `--color-button-${variant}-background`, exampleValue: defaultBg },
-      { role: "Label", tokenName: `color/button/${variant}/default/label`, cssVariable: `--color-button-${variant}-label`, exampleValue: defaultLabel },
-      { role: "Border", tokenName: `color/button/${variant}/default/border`, cssVariable: `--color-button-${variant}-border`, exampleValue: defaultBorder },
-    ],
-    hover: [
-      { role: "Background", tokenName: `color/button/${variant}/hover/background`, cssVariable: `--color-button-${variant}-hover-background`, exampleValue: hoverBg },
-      { role: "Label", tokenName: `color/button/${variant}/hover/label`, cssVariable: `--color-button-${variant}-hover-label`, exampleValue: hoverLabel },
-      { role: "Border", tokenName: `color/button/${variant}/hover/border`, cssVariable: `--color-button-${variant}-hover-border`, exampleValue: hoverBorder },
-    ],
-    pressed: [
-      { role: "Background", tokenName: `color/button/${variant}/pressed/background`, cssVariable: `--color-button-${variant}-pressed-background`, exampleValue: pressedBg },
-      { role: "Label", tokenName: `color/button/${variant}/pressed/label`, cssVariable: `--color-button-${variant}-pressed-label`, exampleValue: pressedLabel },
-      { role: "Border", tokenName: `color/button/${variant}/pressed/border`, cssVariable: `--color-button-${variant}-pressed-border`, exampleValue: pressedBorder },
-    ],
-    disabled: [
-      { role: "Background", tokenName: `color/button/${variant}/disabled/background`, cssVariable: `--color-button-${variant}-disabled-background`, exampleValue: disabledBg },
-      { role: "Label", tokenName: `color/button/${variant}/disabled/label`, cssVariable: `--color-button-${variant}-disabled-label`, exampleValue: disabledLabel },
-      { role: "Border", tokenName: `color/button/${variant}/disabled/border`, cssVariable: `--color-button-${variant}-disabled-border`, exampleValue: disabledBorder },
-    ],
-  };
-  return byState;
-}
-
-export const buttonTokens = {
-  primary: makeTokenRows(
-    "primary",
-    "#2563eb", "#ffffff", "#1d4ed8",
-    "#3b82f6", "#ffffff", "#2563eb",
-    "#1d4ed8", "#ffffff", "#1b40a0",
-    "#93c5fd", "#e0e7ff", "#93c5fd"
-  ),
-  secondary: makeTokenRows(
-    "secondary",
-    "#f3f4f6", "#111827", "#d1d5db",
-    "#e5e7eb", "#111827", "#9ca3af",
-    "#e5e7eb", "#111827", "#6b7280",
-    "#f9fafb", "#9ca3af", "#e5e7eb"
-  ),
-  tertiary: makeTokenRows(
-    "tertiary",
-    "transparent", "#2563eb", "transparent",
-    "#eff6ff", "#1d4ed8", "transparent",
-    "#dbeafe", "#1d4ed8", "transparent",
-    "transparent", "#93c5fd", "transparent"
-  ),
+const FIGMA_VARS = {
+  brand500: {
+    tokenName: "color/brand/channels/500",
+    cssVariable: "--color-brand-channels-500",
+    exampleValue: "#009ee0",
+  },
+  neutral0: {
+    tokenName: "color/neutral/0",
+    cssVariable: "--color-neutral-0",
+    exampleValue: "#FFFFFF",
+  },
+  space12: {
+    tokenName: "space/12",
+    cssVariable: "--space-12",
+    exampleValue: "48px",
+  },
+  space4: {
+    tokenName: "space/4",
+    cssVariable: "--space-4",
+    exampleValue: "16px",
+  },
+  space0: {
+    tokenName: "space/0",
+    cssVariable: "--space-0",
+    exampleValue: "0",
+  },
+  radiusSm: {
+    tokenName: "radius/sm",
+    cssVariable: "--radius-sm",
+    exampleValue: "4px",
+  },
+  fontFamily: {
+    tokenName: "font/family/base",
+    cssVariable: "--font-family-base",
+    exampleValue: "Nunito Sans",
+  },
+  fontSizeMd: {
+    tokenName: "font/size/md",
+    cssVariable: "--font-size-md",
+    exampleValue: "16px",
+  },
+  fontWeightBold: {
+    tokenName: "font/weight/bold",
+    cssVariable: "--font-weight-bold",
+    exampleValue: "700",
+  },
 };
 
-/** Get token rows for the current variant and state for the docs table. */
-export function getButtonTokensForState(variantId, stateId) {
-  return buttonTokens[variantId]?.[stateId] ?? buttonTokens[variantId]?.default ?? [];
+/** Tokens for docs table: variant + state + blackVersion. */
+export function getButtonTokensForState(variantId, stateId, blackVersion) {
+  if (blackVersion) {
+    return [
+      { role: "Background (flat)", tokenName: "(black version)", cssVariable: "--ds-btn-bg", exampleValue: "#111827" },
+      { role: "Label", tokenName: "(black version)", cssVariable: "--ds-btn-label", exampleValue: "#FFFFFF" },
+    ];
+  }
+
+  const rows = [
+    { role: "Fill (Flat)", ...FIGMA_VARS.brand500 },
+    { role: "Label", ...FIGMA_VARS.neutral0 },
+    { role: "Min height (L)", ...FIGMA_VARS.space12 },
+    { role: "Horizontal padding", ...FIGMA_VARS.space4 },
+    { role: "Vertical padding", ...FIGMA_VARS.space0 },
+    { role: "Corner radius", ...FIGMA_VARS.radiusSm },
+    { role: "Label font family", ...FIGMA_VARS.fontFamily },
+    { role: "Label font size", ...FIGMA_VARS.fontSizeMd },
+    { role: "Label font weight", ...FIGMA_VARS.fontWeightBold },
+    { role: "Label line height", tokenName: "(component)", cssVariable: "22px", exampleValue: "22px (matches Figma text)" },
+  ];
+
+  if (variantId === "Stroked" || variantId === "Ghost") {
+    rows[0] = {
+      role: "Background",
+      tokenName: "(transparent)",
+      cssVariable: "transparent",
+      exampleValue: "transparent",
+    };
+  }
+
+  if (stateId === "Hover") {
+    rows.push({
+      role: "Overlay / fill",
+      tokenName: "Figma 353-825 (15% black on base)",
+      cssVariable: "linear-gradient + base",
+      exampleValue: "rgba(0,0,0,0.15) on Flat",
+    });
+  }
+  if (stateId === "Selected") {
+    rows.push({
+      role: "Overlay / fill",
+      tokenName: "Figma 353-828 (25% black on base)",
+      cssVariable: "linear-gradient + base",
+      exampleValue: "rgba(0,0,0,0.25) on Flat",
+    });
+  }
+  if (stateId === "Disabled") {
+    rows.push({
+      role: "Opacity",
+      tokenName: "(component)",
+      cssVariable: "opacity",
+      exampleValue: "0.5",
+    });
+  }
+
+  return rows;
 }
