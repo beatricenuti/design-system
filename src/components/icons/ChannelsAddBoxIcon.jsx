@@ -1,0 +1,21 @@
+import React from "react";
+
+/** Material-style "add box" — Figma node 353-873 (Channels Button Text + icon, 353-870). */
+export function ChannelsAddBoxIcon({ className }) {
+  return (
+    <svg
+      className={className}
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+    >
+      <path
+        fill="currentColor"
+        d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"
+      />
+    </svg>
+  );
+}

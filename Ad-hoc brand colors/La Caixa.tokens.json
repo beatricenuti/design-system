@@ -1,0 +1,127 @@
+{
+  "Ad-hoc brand colors": {
+    "50 - Lightest": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.8784313797950745,
+          0.9529411792755127,
+          0.9843137264251709
+        ],
+        "alpha": 1,
+        "hex": "#E0F3FB"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:690:40",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "100 - Light": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.7019608020782471,
+          0.886274516582489,
+          0.9647058844566345
+        ],
+        "alpha": 1,
+        "hex": "#B3E2F6"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:690:41",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "200 - Shade": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.501960813999176,
+          0.8117647171020508,
+          0.9411764740943909
+        ],
+        "alpha": 1,
+        "hex": "#80CFF0"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:759:62",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "300 - Shade": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.3019607961177826,
+          0.7333333492279053,
+          0.9137254953384399
+        ],
+        "alpha": 1,
+        "hex": "#4DBBE9"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:885:1249",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "500 - Base color": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.6196078658103943,
+          0.8784313797950745
+        ],
+        "alpha": 1,
+        "hex": "#009EE0"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:690:39",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    },
+    "900 - Darkest": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0,
+          0.43921568989753723,
+          0.7960784435272217
+        ],
+        "alpha": 1,
+        "hex": "#0070CB"
+      },
+      "$extensions": {
+        "com.figma.variableId": "VariableID:690:42",
+        "com.figma.scopes": [
+          "ALL_SCOPES"
+        ],
+        "com.figma.isOverride": true
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "La Caixa"
+  }
+}

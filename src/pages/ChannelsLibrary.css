@@ -1,0 +1,143 @@
+/* Channels Library — from Figma "Channels library - Prueba IA" (node 353-798)
+   Uses Channels.tokens.json palette. Refine with get_design_context when Figma desktop is open. */
+
+.channels-library {
+  --channels-50: #E0F3FB;
+  --channels-100: #B3E2F6;
+  --channels-200: #80CFF0;
+  --channels-300: #4DBBE9;
+  --channels-500: #009EE0;
+  --channels-900: #0070CB;
+
+  min-height: 100vh;
+  background: var(--bg-surface, #fff);
+  color: var(--text-primary, #111827);
+  font-family: "Nunito Sans", system-ui, -apple-system, sans-serif;
+}
+
+.channels-library__topbar {
+  height: 64px;
+  border-bottom: 1px solid var(--channels-100);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  background: var(--bg-surface);
+}
+
+.channels-library__topbar-inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.channels-library__logo {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--channels-500);
+  letter-spacing: -0.02em;
+}
+
+.channels-library__main {
+  padding: 32px 40px 48px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.channels-library__header {
+  margin-bottom: 28px;
+}
+
+.channels-library__title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.channels-library__subtitle {
+  font-size: 15px;
+  color: var(--text-muted, #6b7280);
+  margin: 0;
+  line-height: 1.5;
+  max-width: 560px;
+}
+
+.channels-library__toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.channels-library__search {
+  flex: 1;
+  max-width: 320px;
+  height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--border-subtle, #e5e7eb);
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: var(--bg-surface);
+}
+
+.channels-library__search::placeholder {
+  color: var(--text-muted);
+}
+
+.channels-library__search:focus {
+  outline: none;
+  border-color: var(--channels-500);
+  box-shadow: 0 0 0 2px var(--channels-50);
+}
+
+.channels-library__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.channels-library__card {
+  background: var(--bg-elevated, #f8f9fa);
+  border: 1px solid var(--border-subtle, #e5e7eb);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.channels-library__card:hover {
+  border-color: var(--channels-200);
+  box-shadow: 0 4px 12px rgba(0, 158, 224, 0.08);
+}
+
+.channels-library__card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: var(--channels-50);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--channels-500);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.channels-library__card-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  color: var(--text-primary);
+}
+
+.channels-library__card-desc {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.45;
+}
