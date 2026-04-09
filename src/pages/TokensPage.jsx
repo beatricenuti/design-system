@@ -1,10 +1,32 @@
 import React from 'react';
 import { COLOR_TOKENS, SEMANTIC_TOKENS, SPACING_TOKENS, RADIUS_TOKENS } from '../data/tokens.js';
 
-function Section({ title, children }) {
+const COLOR_GROUP_DESCRIPTIONS = {
+  'Channels (Brand)': 'Color primario de la marca Channels. Usa /500 para acciones primarias (botones, links), /50 y /100 para fondos y estados hover sutiles.',
+  'Neutral':          'Escala de grises. /0 es blanco puro, /1000 negro puro. Usa /50–/200 para fondos y separadores, /400–/600 para texto secundario, /800 para texto principal.',
+  'Customer (Brand)': 'Color de la marca Customer (portal B2C). Úsalo solo en contextos de interfaz orientada al usuario final.',
+  'B2B (Brand)':      'Color de la marca B2B. Úsalo en interfaces de operador o administrador.',
+  'Success':          'Estados de éxito y confirmación. Usa /300–/500 para iconos y texto, /50–/100 para fondos de alertas de éxito.',
+  'Error':            'Estados de error y peligro. Usa /300–/500 para texto e iconos de error, /100 para fondos de alertas.',
+  'Warning':          'Estados de advertencia. Usa /300 para iconos, /500 para texto, /100 para fondo de alertas de aviso.',
+  'Info':             'Estados informativos. Usa /300–/500 para texto e iconos informativos, /100 para fondos de alertas de información.',
+};
+
+const SEMANTIC_CATEGORY_DESCRIPTIONS = {
+  Action:     'Colores para los estados interactivos de botones y controles. Cambian automáticamente entre Light y Dark mode.',
+  Text:       'Jerarquía de colores de texto: primary para títulos, secondary para cuerpo, disabled para elementos inactivos, inverse sobre fondos oscuros.',
+  Background: 'Fondos de superficies y contenedores. bg/primary es el fondo por defecto, bg/secondary para áreas diferenciadas.',
+  Border:     'Bordes de componentes. subtle para separadores ligeros, default para inputs, strong para énfasis, error para estados inválidos.',
+  Icon:       'Colores de iconos. Usa brand para iconos de acción principal, secondary para iconos auxiliares, inverse sobre fondos oscuros.',
+};
+
+function Section({ title, description, children }) {
   return (
     <section style={{ marginBottom: 40 }}>
-      <h2 style={{ fontSize: 16, fontWeight: 700, color: '#414141', margin: '0 0 16px', textTransform: 'uppercase', letterSpacing: '0.06em' }}>{title}</h2>
+      <h2 style={{ fontSize: 13, fontWeight: 700, color: '#414141', margin: '0 0 6px', textTransform: 'uppercase', letterSpacing: '0.07em' }}>{title}</h2>
+      {description && (
+        <p style={{ margin: '0 0 14px', fontSize: 13, color: '#767676', lineHeight: 1.6, maxWidth: 560 }}>{description}</p>
+      )}
       {children}
     </section>
   );
@@ -92,7 +114,7 @@ export function TokensPage() {
       {tab === 'primitive' && (
         <div>
           {Object.entries(COLOR_TOKENS).map(([group, tokens]) => (
-            <Section key={group} title={group}>
+            <Section key={group} title={group} description={COLOR_GROUP_DESCRIPTIONS[group]}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: 8 }}>
                 {tokens.map(t => <ColorSwatch key={t.name} {...t} size="lg" />)}
               </div>
@@ -103,11 +125,11 @@ export function TokensPage() {
 
       {tab === 'semantic' && (
         <div>
-          <p style={{ fontSize: 13, color: '#767676', margin: '0 0 20px' }}>
-            Los tokens semánticos hacen referencia a tokens primitivos. Cambian automáticamente entre Light/Dark mode.
+          <p style={{ fontSize: 13, color: '#767676', margin: '0 0 24px', lineHeight: 1.6 }}>
+            Los tokens semánticos hacen referencia a tokens primitivos y tienen un <strong>nombre con significado de uso</strong> (no de color). Cambian automáticamente entre Light y Dark mode.
           </p>
           {semanticCategories.map(cat => (
-            <Section key={cat} title={cat}>
+            <Section key={cat} title={cat} description={SEMANTIC_CATEGORY_DESCRIPTIONS[cat]}>
               <div style={{ border: '1px solid #e8e8e8', borderRadius: 10, overflow: 'hidden' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
                   <thead style={{ background: '#f8f8f8' }}>
@@ -131,7 +153,10 @@ export function TokensPage() {
 
       {tab === 'spacing' && (
         <div>
-          <Section title="Espaciado (Base 4px)">
+          <Section
+            title="Espaciado (Base 4px)"
+            description="Todos los espaciados usan una base de 4px. Usa siempre un token de la escala — nunca valores arbitrarios. Los más usados son space/4 (16px) para padding de componentes y space/6 (24px) para gaps entre secciones."
+          >
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {SPACING_TOKENS.map(t => (
                 <div key={t.name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '8px 12px', background: '#fff', border: '1px solid #e8e8e8', borderRadius: 8 }}>
@@ -142,7 +167,10 @@ export function TokensPage() {
               ))}
             </div>
           </Section>
-          <Section title="Border Radius">
+          <Section
+            title="Border Radius"
+            description="Radios de borde del sistema. Usa radius/button (8px) para botones, radius/4 para inputs y radius/full (999px) para chips y badges."
+          >
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 8 }}>
               {RADIUS_TOKENS.map(t => (
                 <div key={t.name} style={{ padding: '12px 14px', background: '#fff', border: '1px solid #e8e8e8', borderRadius: 8, display: 'flex', flexDirection: 'column', gap: 6 }}>

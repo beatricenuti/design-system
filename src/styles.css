@@ -11,12 +11,25 @@
   --color-brand-channels-500: #009ee0;
   --color-neutral-0: #ffffff;
   --font-size-md: 16px;
+  --font-size-sm: 14px;
   --font-family-base: "Nunito Sans", system-ui, sans-serif;
   --font-weight-bold: 700;
   --space-0: 0px;
+  --space-2: 8px;
   --space-4: 16px;
   --space-12: 48px;
   --radius-sm: 4px;
+  --radius-button: 8px;
+
+  /* Semantic color tokens (Figma Semantic collection, Light mode) */
+  --color-action-primary-default: #009ee0;
+  --color-brand-primary: #009ee0;
+  --color-text-inverse: #ffffff;
+  --color-text-secondary: #414141;
+  --color-text-disabled: #a0a0a0;
+  --color-action-secondary-hover: #c6c6c6;
+  --color-border-default: #c6c6c6;
+  --color-border-subtle: #e8e8e8;
 
   /* Legacy aliases (Portal B2C / other screens) */
   --base-brand-colors-500-base-color: var(--color-brand-channels-500);
@@ -690,3 +703,70 @@ body {
   margin-top: 8px;
 }
 
+/* ========== Getting Started page ========== */
+.getting-started-hero {
+  padding: 48px 0 36px;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: 40px;
+}
+
+.getting-started-hero h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: #212121;
+  margin: 16px 0 12px;
+}
+
+/* ========== Token Hierarchy diagram ========== */
+.token-hierarchy {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 20px 0 40px;
+}
+
+.token-hierarchy__col {
+  background: #f8f9fa;
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+}
+
+.token-hierarchy__col::after {
+  content: '→';
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #c6c6c6;
+  font-size: 20px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.token-hierarchy__col:last-child::after {
+  display: none;
+}
+
+/* ========== Component Detail page ========== */
+.detail-section-heading {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #a0a0a0;
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 900px) {
+  .token-hierarchy {
+    grid-template-columns: 1fr;
+  }
+  .token-hierarchy__col::after {
+    display: none;
+  }
+}
