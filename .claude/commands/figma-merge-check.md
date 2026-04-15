@@ -96,9 +96,30 @@ Muestra tabla: nombre | dimensiones. No hace cambios automáticos.
 
 ---
 
+### CHECK 8 — 🌐 Traducción de nombres al inglés
+
+Muestra la lista completa de nombres de todos los frames a nivel canvas (tras los checks anteriores).
+
+Pregunta al usuario:
+> "¿Quieres traducir algún nombre de frame al inglés? (s/n)"
+
+Si **no**: marca ✅ y continúa.
+
+Si **sí**: propón la traducción manteniendo la estructura `[PREFIJO_]NameInEnglish_N`, muestra tabla con nombre actual | traducción propuesta, permite editar y pide confirmación antes de renombrar con `use_figma`.
+
+Ejemplo:
+```
+| Nombre actual              | Traducción propuesta        |
+|---------------------------|----------------------------|
+| MBL_Reserva_Ver_Detalle_1 | MBL_Booking_Detail_View_1  |
+| DSK_Reservas_Listado_1    | DSK_Bookings_List_1        |
+```
+
+---
+
 ## INFORME FINAL
 
-Al completar los 7 checks muestra siempre:
+Al completar los 8 checks muestra siempre:
 
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -120,6 +141,7 @@ RESUMEN:
 | 5 | 🎨 Colores fuera librería | ✅/⚠️ (info)    |
 | 6 | 📝 Textos fuera librería  | ✅/⚠️ (info)    |
 | 7 | 📐 Frames sin auto-layout | ✅/⚠️ (info)    |
+| 8 | 🌐 Traducción al inglés   | ✅/🔧            |
 
 PENDIENTE REVISIÓN MANUAL:
 [Items de checks 5, 6 y 7 que requieren acción en Figma]

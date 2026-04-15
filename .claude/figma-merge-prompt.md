@@ -16,7 +16,7 @@
 /figma-merge-check https://www.figma.com/design/TU_FILE_KEY/Nombre-del-Archivo
 ```
 
-Claude ejecutará los 7 checks de forma automática e interactiva, preguntando antes de cada cambio.
+Claude ejecutará los 8 checks de forma automática e interactiva, preguntando antes de cada cambio.
 
 ---
 
@@ -83,7 +83,15 @@ Muestra tabla: nombre | dimensiones. No hagas cambios.
 
 ---
 
-Al finalizar los 7 checks, genera este informe:
+CHECK 8 — 🌐 Traducción de nombres al inglés
+Muestra la lista de todos los nombres de frames actuales y pregunta:
+"¿Quieres traducir algún nombre al inglés? (s/n)"
+Si sí: propón traducción manteniendo prefijo y numeración (MBL_Booking_Detail_View_1, etc.)
+Muestra tabla: nombre actual | traducción propuesta. Pide confirmación antes de renombrar.
+
+---
+
+Al finalizar los 8 checks, genera este informe:
 
 INFORME FINAL — Checklist Pre-Merge Figma
 Archivo: [nombre] | Fecha: [fecha]
@@ -101,6 +109,7 @@ RESUMEN:
 | 5 | 🎨 Colores fuera librería | ✅/⚠️ (info) |
 | 6 | 📝 Textos fuera librería  | ✅/⚠️ (info) |
 | 7 | 📐 Frames sin auto-layout | ✅/⚠️ (info) |
+| 8 | 🌐 Traducción al inglés   | ✅/🔧         |
 
 PENDIENTE REVISIÓN MANUAL EN FIGMA:
 [Items de checks 5, 6 y 7 + capas internas sin nombrar]
@@ -137,6 +146,9 @@ Para revisión sin Claude, o como referencia del proceso:
 ### 7. 📐 Frames sin auto-layout
 - [ ] Todos los frames de pantalla tienen auto-layout activado
 
+### 8. 🌐 Traducción al inglés
+- [ ] Todos los nombres de frames están en inglés (o se ha decidido mantenerlos en otro idioma)
+
 ---
 
 ## Convenciones de naming del equipo
@@ -156,5 +168,6 @@ Para revisión sin Claude, o como referencia del proceso:
 
 | Versión | Fecha      | Cambios                                              |
 |---------|------------|------------------------------------------------------|
+| 2.1     | 2026-04-15 | Añadido check 8: traducción de nombres al inglés     |
 | 2.0     | 2026-04-15 | 7 checks, nuevas reglas de naming, informe final     |
 | 1.0     | 2026-04-15 | Versión inicial con 6 checks                         |
