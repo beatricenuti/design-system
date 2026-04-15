@@ -9,14 +9,14 @@
 
 ### Opción A — Comando automático (Claude Code) ⭐ Recomendado
 
-1. Abre Claude Code en la carpeta del proyecto
+1. Abre Claude Code en la carpeta del proyecto (`cd design-system && claude`)
 2. Escribe en el chat:
 
 ```
 /figma-merge-check https://www.figma.com/design/TU_FILE_KEY/Nombre-del-Archivo
 ```
 
-Claude ejecutará los 6 checks de forma automática e interactiva, preguntando antes de cada cambio.
+Claude ejecutará los 7 checks de forma automática e interactiva, preguntando antes de cada cambio.
 
 ---
 
@@ -38,51 +38,72 @@ Eres un asistente experto en sistemas de diseño Figma. Voy a hacer merge de una
 
 URL del archivo (rama): [PEGA AQUÍ TU URL DE FIGMA]
 
-Por favor ejecuta estos 6 checks en orden usando las herramientas de Figma MCP. Para cada check muestra ✅ PASA o ⚠️ SE ENCONTRARON PROBLEMAS, y pídeme confirmación antes de hacer cualquier cambio en el archivo.
+Por favor ejecuta estos 7 checks en orden usando las herramientas de Figma MCP.
+Pídeme confirmación antes de hacer cualquier cambio en el archivo.
+Al final genera un informe con todos los cambios aplicados.
+
+NOTA: Los checks se aplican solo a frames de nivel canvas (hijos directos de la página).
+El Plugin API de Figma no permite acceder a capas internas — esas hay que revisarlas manualmente.
 
 ---
 
-CHECK 1 — 🔄 Actualizar librería principal
-Usa get_metadata y get_variable_defs para verificar si hay actualizaciones de librería pendientes.
-Compara los componentId del árbol con los componentes de la librería publicada.
-Si hay discrepancias, indícame los pasos manuales para actualizar (la API no lo permite automáticamente).
+CHECK 1 — 🔍 Nomenclatura de frames
+Obtén el árbol de frames a nivel canvas con get_metadata.
+Lista todos los frames con nombres genéricos: Frame, Rectangle, Group, Ellipse, Vector, Section
+(con o sin número al final, ej: Frame 34, Group 2).
+Para cada uno muestra un screenshot con get_screenshot y pregúntame cómo se llama.
 
-CHECK 2 — 📱 Nomenclatura mobile (MBL_)
-Usa get_design_context para obtener el árbol de capas.
-Identifica todos los frames con ancho ≤ 430px que NO tengan el prefijo MBL_.
-Muestra tabla: nombre actual | dimensiones | nombre correcto.
-Pídeme permiso antes de renombrar.
+CHECK 2 — ✏️ Asignar nombres y numeración
+Con el nombre base que te dé, aplica el patrón NombreBase_1, NombreBase_2... a todos los frames del mismo tipo.
+Si hay frames con el mismo nombre repetido, aplica también la numeración.
+Muestra tabla completa y pídeme confirmación antes de renombrar con use_figma.
 
-CHECK 3 — 🏷️ Capas sin nombrar
-Recorre el árbol completo buscando capas con nombres genéricos de Figma:
-Frame, Rectangle, Group, Ellipse, Vector, Line, Polygon, Star, Text, Image, Component, Instance
-(incluyendo variantes con número: Frame 1, Rectangle 3, etc.)
-Para cada una propón un nombre descriptivo en snake_case según su contexto.
-Muestra tabla y ofrece opciones: renombrar todas / una por una / omitir.
+CHECK 3 — 📱 Prefijo MBL_ en pantallas mobile
+Identifica frames con ancho exactamente 390px — estas son las pantallas mobile.
+Deben tener el prefijo MBL_ antes del nombre asignado en el Check 2: MBL_NombreBase_N.
+Muestra tabla y pídeme confirmación antes de renombrar con use_figma.
 
 CHECK 4 — 👁️ Capas ocultas
-Lista TODAS las capas donde visible === false en cualquier nivel de profundidad.
-Muestra tabla: nombre | tipo | frame padre.
-Pídeme cómo proceder: eliminar todas / preguntar una por una / conservar todas.
+Busca capas con visible === false directamente dentro de frames de canvas.
+IMPORTANTE: Ignora cualquier capa cuyo node ID tenga formato I0:123;4:567 — son overrides
+de componentes de librería y no deben tocarse. Solo actúa sobre IDs estándar (1234:5678).
+Pídeme confirmación antes de eliminar.
 
-CHECK 5 — 🖼️ Nombres de frames descriptivos
-Revisa los frames principales y detecta:
-- Nombres genéricos o temporales: "Pantalla 1", "Screen", "WIP", "Draft", "Test", "Copy of", "Sin título"
-- Inconsistencias entre nombre y contenido (ej: frame "checkout" con texto "Gracias por tu compra")
-Usa get_screenshot si necesitas confirmar visualmente algún frame.
-Muestra tabla: nombre actual | problema detectado | nombre sugerido.
-Pídeme permiso antes de renombrar.
+CHECK 5 — 🎨 Colores fuera de librería (solo informativo)
+Busca con use_figma nodos a nivel canvas con fills SOLID donde boundVariables esté vacío.
+Muestra tabla: frame | capa | color hex. No hagas cambios.
 
-CHECK 6 — 🔗 Componentes con detach (solo informativo)
-Usa search_design_system para identificar instancias de componentes.
-Detecta los que tienen mainComponent === null o referencian un nodo local en lugar de la librería.
-Muestra tabla: nombre en archivo | frame padre | componente original estimado.
-No realices cambios en este check, es solo para mi conocimiento.
+CHECK 6 — 📝 Textos fuera de librería (solo informativo)
+Busca con use_figma nodos TEXT a nivel canvas donde textStyleId esté vacío.
+Muestra tabla: frame | texto (primeros 30 chars) | fuente local. No hagas cambios.
+
+CHECK 7 — 📐 Frames sin auto-layout (solo informativo)
+Busca con use_figma frames a nivel canvas donde layoutMode === "NONE". Excluye frames < 100px.
+Muestra tabla: nombre | dimensiones. No hagas cambios.
 
 ---
 
-Al finalizar los 6 checks, muestra una tabla resumen con el estado de cada uno:
-✅ PASA | ⚠️ ISSUES SIN RESOLVER | 🔧 CORREGIDO
+Al finalizar los 7 checks, genera este informe:
+
+INFORME FINAL — Checklist Pre-Merge Figma
+Archivo: [nombre] | Fecha: [fecha]
+
+CAMBIOS APLICADOS:
+[Lista de todos los renombrados y eliminaciones realizados]
+
+RESUMEN:
+| # | Check                     | Estado        |
+|---|---------------------------|---------------|
+| 1 | 🔍 Nomenclatura frames    | ✅/⚠️/🔧     |
+| 2 | ✏️ Nombres y numeración   | ✅/⚠️/🔧     |
+| 3 | 📱 Prefijo MBL_           | ✅/⚠️/🔧     |
+| 4 | 👁️ Capas ocultas         | ✅/⚠️/🔧     |
+| 5 | 🎨 Colores fuera librería | ✅/⚠️ (info) |
+| 6 | 📝 Textos fuera librería  | ✅/⚠️ (info) |
+| 7 | 📐 Frames sin auto-layout | ✅/⚠️ (info) |
+
+PENDIENTE REVISIÓN MANUAL EN FIGMA:
+[Items de checks 5, 6 y 7 + capas internas sin nombrar]
 ```
 
 ---
@@ -91,50 +112,49 @@ Al finalizar los 6 checks, muestra una tabla resumen con el estado de cada uno:
 
 Para revisión sin Claude, o como referencia del proceso:
 
-### 1. 🔄 Actualizar librería principal
-- [ ] No hay actualizaciones de librería pendientes
-- [ ] Si las hay: aplicadas desde Figma → Menú → Bibliotecas → Actualizar todo
+### 1. 🔍 Nomenclatura de frames
+- [ ] No hay frames con nombres genéricos a nivel canvas (`Frame 1`, `Group 2`…)
+- [ ] Cada frame tiene un nombre descriptivo del contenido que muestra
 
-### 2. 📱 Nomenclatura mobile (MBL_)
-- [ ] Todas las pantallas mobile (ancho ≤ 430px) tienen el prefijo `MBL_`
-- [ ] Ejemplos correctos: `MBL_Login`, `MBL_Home`, `MBL_Checkout_Paso1`
+### 2. ✏️ Nombres y numeración
+- [ ] Los frames del mismo tipo siguen el patrón `NombreBase_1`, `NombreBase_2`…
+- [ ] No hay frames con el mismo nombre sin diferenciador
 
-### 3. 🏷️ Capas sin nombrar
-- [ ] No hay capas con nombres genéricos de Figma (`Frame`, `Rectangle`, `Group`…)
-- [ ] Cada capa tiene un nombre descriptivo en snake_case
+### 3. 📱 Prefijo MBL_ en mobile
+- [ ] Todos los frames de **390px de ancho** tienen el prefijo `MBL_`
+- [ ] Formato correcto: `MBL_NombreBase_1`, `MBL_NombreBase_2`…
 
 ### 4. 👁️ Capas ocultas
-- [ ] Revisadas todas las capas ocultas del archivo
-- [ ] Capas ocultas innecesarias: eliminadas
-- [ ] Capas ocultas a conservar: justificadas o documentadas
+- [ ] No hay capas ocultas directamente en frames (ignorar las de componentes de librería)
+- [ ] Las capas ocultas identificadas han sido eliminadas o justificadas
 
-### 5. 🖼️ Nombres de frames descriptivos
-- [ ] Ningún frame con nombre genérico o temporal (`WIP`, `Draft`, `Pantalla 1`…)
-- [ ] El nombre de cada frame refleja fielmente su contenido real
+### 5. 🎨 Colores fuera de librería
+- [ ] Todos los colores usan variables o estilos de la librería (no hex directos)
 
-### 6. 🔗 Componentes con detach
-- [ ] Listados todos los componentes desvinculados de la librería
-- [ ] Cada detach tiene justificación o ha sido re-vinculado al componente original
+### 6. 📝 Textos fuera de librería
+- [ ] Todos los textos usan estilos tipográficos de la librería
+
+### 7. 📐 Frames sin auto-layout
+- [ ] Todos los frames de pantalla tienen auto-layout activado
 
 ---
 
 ## Convenciones de naming del equipo
 
-| Tipo de pantalla | Prefijo obligatorio | Ejemplo               |
-|-----------------|---------------------|-----------------------|
-| Mobile          | `MBL_`              | `MBL_Login`           |
-| Desktop         | `DSK_`              | `DSK_Dashboard`       |
-| Tablet          | `TBL_`              | `TBL_Home`            |
-| Prototipo       | `PROTO_`            | `PROTO_Flujo_Pago`    |
-| Componente      | (nombre del DS)     | `Button/Primary`      |
+| Tipo de pantalla | Prefijo obligatorio | Ancho    | Ejemplo                    |
+|-----------------|---------------------|----------|----------------------------|
+| Mobile          | `MBL_`              | 390px    | `MBL_Reserva_Ver_Detalle_1`|
+| Desktop         | `DSK_`              | > 390px  | `DSK_Reservas_Listado_1`   |
+| Tablet          | `TBL_`              | variable | `TBL_Home_1`               |
 
-**Separador de palabras:** guion bajo `_`
-**Capitalización:** PascalCase para pantallas (`MBL_LoginScreen`), snake_case para capas internas (`bg_header_login`)
+**Separador:** guion bajo `_`
+**Numeración:** siempre al final con `_N` (ej: `_1`, `_2`, `_3`)
 
 ---
 
 ## Historial de versiones
 
-| Versión | Fecha      | Cambios                        |
-|---------|------------|--------------------------------|
-| 1.0     | 2026-04-15 | Versión inicial con 6 checks   |
+| Versión | Fecha      | Cambios                                              |
+|---------|------------|------------------------------------------------------|
+| 2.0     | 2026-04-15 | 7 checks, nuevas reglas de naming, informe final     |
+| 1.0     | 2026-04-15 | Versión inicial con 6 checks                         |
