@@ -85,9 +85,24 @@ Deberías ver `figma` en la lista de servidores conectados con estado ✅.
 
 ---
 
-## Paso 4 — Usar el checklist
+## Paso 4 — Abrir Claude Code SIEMPRE desde la carpeta del proyecto
 
-Cuando tengas que hacer merge de una rama de Figma, abre Claude Code en el proyecto y escribe:
+⚠️ **Este paso es crítico.** El comando `/figma-merge-check` solo funciona si Claude Code se abre desde la carpeta raíz del repositorio.
+
+Cada vez que quieras usar el checklist:
+
+```bash
+# 1. Navega a la carpeta del proyecto
+cd design-system
+
+# 2. Verifica que el comando existe (deberías ver figma-merge-check.md)
+ls .claude/commands/
+
+# 3. Abre Claude Code desde aquí
+claude
+```
+
+Una vez dentro de Claude Code, escribe:
 
 ```
 /figma-merge-check https://www.figma.com/design/TU_FILE_KEY/Nombre-del-Archivo
@@ -110,8 +125,20 @@ Claude ejecutará los 6 checks automáticamente y te pedirá confirmación antes
 
 ## Problemas frecuentes
 
-**"El comando /figma-merge-check no aparece"**
-→ Asegúrate de abrir Claude Code desde la raíz del proyecto (`cd design-system && claude`)
+**"Unknown skill: figma-merge-check"**
+→ Estás abriendo Claude Code desde la carpeta incorrecta. Cierra Claude Code y vuelve a abrirlo así:
+```bash
+cd design-system
+claude
+```
+
+**"El comando /figma-merge-check no aparece en el autocompletado"**
+→ Mismo problema: abre Claude Code desde la carpeta `design-system`. Comprueba primero:
+```bash
+ls .claude/commands/
+# Tiene que aparecer: figma-merge-check.md
+```
+Si no aparece el archivo, haz `git pull origin main` para descargarlo.
 
 **"Error: Figma MCP not connected"**
 → Revisa que el token en `~/.claude/settings.json` es correcto y no tiene espacios extra
